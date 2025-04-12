@@ -1,23 +1,25 @@
-const apiKey = '2b841dc1f43672a2602b8aec9786acba'; 
-const lat = 46.97;
-const lon = 32;
+function FillData() {
+    let requestURL = 
+        "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5";
+    let request = new XMLHttpRequest();
+    request.open("GET", requestURL);
+    request.responseType = "json";
+    request.send();
+    request.onload = function () {
+        var currencyRate_json = request.response;
+        ShowCurrencyRate(currencyRate_json);
+    };
+}
 
-fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`)
-  .then(response => response.json())
-  .then(data => {
-    const weatherDiv = document.getElementById('weather');
-    const html = `
-      <h2>Weather in Nikolaev</h2>
-      <p>Longitude: ${lon}</p>
-      <p>Latitude: ${lat}</p>
-      <p>Date: ${new Date().toDateString()}</p>
-      <p>Temperature: ${data.main.temp} °C</p>
-      <p>Feels like: ${data.main.feels_like} °C</p>
-      <p>Wind: ${data.wind.speed} m/s</p>
-    `;
-    weatherDiv.innerHTML = html;
-  })
-  .catch(error => {
-    document.getElementById('weather').innerText = 'Не вдалося завантажити погоду.';
-    console.error('Помилка:', error);
-  });
+function ShowCurrencyRate(jsonObj) {
+    let section = document.querySelector("section");
+    let table = document.createElement("table");
+    table.classList.add("table", "table-bordered");
+    let thead = document.createElement("thead");
+    thead.classList.add("thead-dark");
+    let tr = document.createElement("tr");
+    tr.classList.add("text-center");
+    let t = document.createElement("th");
+    t.textContent = "Currency";
+    t.scope = "col";
+    tr.appendChild(t);
