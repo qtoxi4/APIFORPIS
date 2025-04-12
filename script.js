@@ -1,4 +1,4 @@
-const apiKey = 'YOUR_API_KEY'; // <-- Встав сюди свій ключ
+const apiKey = '95d6036dd58b227e07d178a91af0b4cc'; 
 const lat = 46.97;
 const lon = 32;
 
